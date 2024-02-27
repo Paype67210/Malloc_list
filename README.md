@@ -6,4 +6,8 @@ L'idée de ce projet est de développer 3 fonctions en C pour la gestion de l'al
 + `ft_free_all` pour la libération des variables encore présentes dans la liste chaînée
 
 Ces fonctions me semblent utiles dans le cadre de mon parcours à 42-Mulhouse pour faciliter la gestion des Malloc et éviter ainsi les doubles free, les leaks et autres désagréments dus à la gestion de la heap dans les projets en C.
-Affqire à suivre...
+Affaire à suivre...
+
+<h4> CONVENTIONS DE COLLABORATION
+
+<i>Toute modification doit être realisée sur une nouvelle branche afin de conserver la branche principale avant tout `PULL REQUEST` validé.
