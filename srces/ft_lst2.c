@@ -1,4 +1,4 @@
-#include "..:headers/malloc_list.h"
+#include "../headers/malloc_list.h"
 
 t_list	*ft_lstretrieve(t_list **lst, t_list *node)
 {
@@ -22,15 +22,46 @@ t_list	*ft_lstretrieve(t_list **lst, t_list *node)
 	return (NULL);
 }
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstremove(t_list **lst, t_list *node, void (*del)(void*))
 {
-	size_t	len;
+	t_list	*i_token;
 
-	len = 0;
-	while (lst)
+	i_token = *lst;
+	while (i_token && i_token != node)
+		i_token = i_token->next;
+	if (i_token)
 	{
-		lst = lst->next;
-		len++;
+		if (i_token->prev)
+			i_token->prev->next = i_token->next;
+		else
+			*lst = i_token->next;
+		if (i_token->next)
+			i_token->next->prev = i_token->prev;
+		ft_lstdelone(i_token, del);
+		return (1);
 	}
-	return (len);
+	return (0);
+}
+
+int	ft_lstreplace(t_list **lst, t_list *node)
+{
+	t_list	*buffer;
+
+	buffer = *lst;
+	while (buffer && buffer != node)
+		buffer = buffer->next;
+	if (buffer) // node was found
+	{
+		if (buffer->prev)
+			buffer->prev->next = node;
+		else
+			*lst = node;
+		if (buffer->next)
+			buffer->next->prev = node;
+		node->next = buffer->next;
+		node->prev = buffer->prev;
+		free(buffer);
+		return (1);
+	}
+	return (0);
 }

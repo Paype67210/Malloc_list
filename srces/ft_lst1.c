@@ -1,81 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lst1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdeson <pdeson@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 12:43:24 by pdeson            #+#    #+#             */
+/*   Updated: 2024/02/27 10:12:01 by pdeson           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/malloc_list.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_lstsize(t_list *lst)
 {
-	if (!lst || !f)
+	size_t	len;
+
+	len = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		len++;
+	}
+	return (len);
+}
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (!del)
 		return ;
-	while (lst)
+	if (lst)
 	{
-		(*f)(lst->content);
-		lst = lst->next;
+		(*del)(lst->content);
+		//(*del)(lst->size);
+		free(lst);
 	}
 }
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*buffer;
 
-	if (!lst)
-		return (NULL);
-	buffer = lst;
-	while (buffer->next)
-			buffer = buffer->next;
-	return (buffer);
+	if (!del || !lst || !*lst)
+		return ;
+	buffer = *lst;
+	while (buffer)
+	{
+		buffer = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = buffer;
+	}
 }
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	t_list	*ret;
-	t_list	*buffer;
-
-	if (!lst || !f || !del)
-		return (NULL);
-	ret = NULL;
-	while (lst)
+	if (lst && new)
 	{
-		buffer = ft_lstnew((*f)(lst->content), 0);
-		if (!buffer)
+		if (*lst)
 		{
-			ft_lstclear(&ret, del);
-			return (NULL);
+			new->next = *lst;
+			(*lst)->prev = new;
 		}
-		ft_lstadd_back(&ret, buffer);
-		lst = lst->next;
+		*lst = new;
 	}
-	return (ret);
 }
 
-t_list	*ft_lstnew(void *content, int type)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*node;
+	t_list	*last;
 
-	node = (t_list *)malloc(sizeof(t_list));
-	if (!node)
-		exit (EXIT_FAILURE);
-	node->content = content;
-	node->type = type;
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
-}
-
-int	ft_lstremove(t_list **lst, t_list *node, void (*del)(void*))
-{
-	t_list	*i_token;
-
-	i_token = *lst;
-	while (i_token && i_token != node)
-		i_token = i_token->next;
-	if (i_token)
+	last = ft_lstlast(*lst);
+	if (!last)
+		*lst = new;
+	else
 	{
-		if (i_token->prev)
-			i_token->prev->next = i_token->next;
-		else
-			*lst = i_token->next;
-		if (i_token->next)
-			i_token->next->prev = i_token->prev;
-		ft_lstdelone(i_token, del);
-		return (1);
+		last->next = new;
+		new->prev = last;
 	}
-	return (0);
 }
