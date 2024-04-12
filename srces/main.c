@@ -12,33 +12,53 @@
 
 #include "../headers/malloc_list.h"
 
-char	*ft_malloc(t_list *ouille, size_t size)
+void	ft_printlist(t_list *list)
 {
-	t_list	*head;
-	void	*buffer;
+	t_list	*buffer;
 
-	buffer = malloc(size);
-	if (!buffer)
-		return (NULL);
-	buffer = "012345678";
-	printf("Entree dans ft_malloc\tBuffer = %p\n", buffer);
-	ft_lstadd_back(&ouille, ft_lstnew(buffer, size));
-	printf("gdsks\n");
-	head = ouille;
-	return (ft_lstlast(ouille)->content);
+	buffer = list;
+	while (buffer)
+	{
+		printf("%p\n", buffer->content);
+	//if (buffer->next)
+	 		buffer = buffer->next;
+	}
 }
 
 int	main(void)
 {
 	t_list	*ouille;
 	char	*str;
-	int		i = -1;
+	size_t	i;
 
-	ouille = NULL;
-	str = ft_malloc(ouille, 10);
+	ouille = ft_lstnew(NULL, 0);
+	/* impression d'un CHAR * */
+	str = (char *)ft_malloc(ouille, 10 * sizeof(char));
 	printf("str: %p\n", str);
-	printf("%zu\n", ft_strlen(str));
-	while (str[++i] != '\0')
-		str[i] = 'a';
-	printf("%s\n", (char *)str);
+	for (i = 0; i < 10; i++)
+		str[i] = 'a' + i;
+	printf("%s\n", str);
+	printf("------\n");
+	/* impression d'un CHAR ** */
+	char	**array;
+
+	array = (char **)ft_malloc(ouille, 4 * sizeof(char *));
+	printf("array: %p\n", array);
+	int	j;
+	for (j = 0; j < 3; j++) {
+		array[j] = (char *)ft_malloc(ouille, 11 * sizeof(char));
+		for (int k = 0; k < 10; k++)
+			array[j][k] = 'a' + j + k;
+	}
+	printf("array **: %p\n", array);
+	int z = 0;
+	while (z < 13 && array[z] != 0)
+	{
+		printf("array[%p] = %s\n", array[z], array[z]);
+		z++;
+	}
+	printf("------\n");
+	printf("Taille de Ouille: %i\n", ft_lstsize(ouille));
+	ft_printlist(ft_lstfirst(ouille));
+	return (0);
 }

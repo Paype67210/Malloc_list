@@ -48,5 +48,9 @@ int		ft_lstremove(t_list **lst, t_list *node, void (*del)(void*));
 t_list	*ft_lstretrieve(t_list **lst, t_list *node);
 int		ft_lstreplace(t_list **lst, t_list *node);
 size_t	ft_strlen(const char *str);
+/* ---------- FT_MALLOC ---------- */
+void	*ft_malloc(t_list *ouille, size_t size);
+void	*ft_memset(void *mtr, size_t n);
+void	ft_printlist(t_list *list);
 
 #endif

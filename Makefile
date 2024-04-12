@@ -21,7 +21,7 @@ SRC_DIR   =	srces/
 OBJ_DIR   =	.obj/
 
 SRC       =	main.c ft_utils.c ft_malloc.c ft_free.c ft_free_all.c \
-            ft_lst0.c ft_lst1.c ft_lst2.c ft_strlen.c
+            ft_lst0.c ft_lst1.c ft_lst2.c
 
 SRCES           =	$(addprefix $(SRC_DIR), $(SRC))
 OBJ             =	$(SRC:.c=.o)

@@ -12,3 +12,14 @@
 
 #include "../headers/malloc_list.h"
 
+void	*ft_malloc(t_list *ouille, size_t size)
+{
+	void	*buffer;
+
+	buffer = malloc(size);
+	if (!buffer)
+		return (NULL);
+	ft_lstadd_back(&ouille, ft_lstnew(buffer, size));
+	printf("Taille_list: %i\n", ft_lstsize(ouille));
+	return (buffer);
+}
