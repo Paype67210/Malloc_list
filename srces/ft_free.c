@@ -18,7 +18,7 @@ int    ft_free(t_list **list, void *ptr)
     t_list *prev;
 
     if (!list || !*list || !ptr)
-        return 0;
+        return 1;
     current = *list;
     prev = NULL;
     while (current)
@@ -31,10 +31,10 @@ int    ft_free(t_list **list, void *ptr)
                 *list = current->next;
             free(current->content);
             free(current);
-            return 1;
+            return 0;
         }
         prev = current;
         current = current->next;
     }
-    return 0;
+    return 1;
 }

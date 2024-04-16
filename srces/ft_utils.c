@@ -67,3 +67,37 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
         last->next = new;
     }
 }
+
+void	ft_bzero(void *mtr, size_t n)
+{
+	unsigned char	*p;
+	size_t			i;
+
+	p = mtr;
+	i = 0;
+	if (n > 0)
+	{
+		while (i < n)
+			p[i++] = '\0';
+	}
+	return ;
+}
+
+char	*ft_strnlcpy(const char *src, size_t size)
+{
+	size_t	i;
+	size_t	j;
+	char	*dst;
+
+	j = size;
+	i = 0;
+	dst = malloc((ft_strlen(src) - size + 1) * sizeof(char));
+	while (j != ft_strlen(src))
+	{
+		dst[i] = src[j];
+		i++;
+		j++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}

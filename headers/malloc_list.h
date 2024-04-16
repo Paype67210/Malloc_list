@@ -18,6 +18,7 @@
 # include <errno.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdarg.h>
 
 /*
 	content = pointer vers le malloc
@@ -39,10 +40,13 @@ t_list	*ft_lstnew(void *content, int size);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 size_t	ft_lstsize(t_list *lst);
 size_t	ft_strlen(const char *str);
+void	ft_bzero(void *mtr, size_t n);
+char	*ft_strnlcpy(const char *src, size_t size);
 /* ---------- FT_MALLOC ---------- */
 void	*ft_malloc(t_list **ouille, size_t size);
 void	ft_printlist(t_list *list);
-int		ft_realloc(t_list **list, void *ptr, size_t size);
+int		*ft_realloc(t_list **list, void *ptr, size_t size);
+void	*ft_run_malloc(int function, ...);
 /* ---------- FT_FREE ---------- */
 int		ft_free(t_list **list, void *ptr);
 int 	ft_freeall(t_list **list);

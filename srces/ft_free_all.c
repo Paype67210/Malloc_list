@@ -18,7 +18,7 @@ int ft_freeall(t_list **list)
     t_list *next_node;
     
     if (!list || !*list)
-        return 0;
+        return 1;
     current = *list;
     while (current)
     {
@@ -28,5 +28,5 @@ int ft_freeall(t_list **list)
         current = next_node;
     }
     *list = NULL;
-    return 1;
+    return 0;
 }

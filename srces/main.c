@@ -27,77 +27,91 @@ void	ft_printlist(t_list *list)
 
 int	main(void)
 {
-	t_list	*ouille;
-	char	*str;
+	char	*str = NULL;
 	size_t	i;
 
-	ouille = ft_lstnew(NULL, 0);
-	str = (char *)ft_malloc(&ouille, 10 * sizeof(char));
+	str = ft_run_malloc(1, 10);
 	printf("str: %p\n", str);
-	for (i = 0; i < 10; i++)
-		str[i] = 'a' + i;
-	printf("%s\n", str);
-	printf("------\n");
-	if (ft_free(&ouille, str) == 1)
+ 	for (i = 0; i < 9; i++)
+ 		str[i] = 'a' + i;
+ 	printf("%s\n", str);
+ 	printf("------\n");
+	if (!ft_run_malloc(2, str))
 		printf("str a ete free\n");
 	else
 		printf("str n'a pas ete free\n");
-	char	**array;
 
-	array = (char **)ft_malloc(&ouille, 4 * sizeof(char *));
+ 	char	**array = NULL;
+
+	array = (char **)ft_run_malloc(1, 4 * sizeof(char *));
 	printf("array: %p\n", array);
 	int	j;
 	for (j = 0; j < 3; j++) {
-		array[j] = (char *)ft_malloc(&ouille, 11 * sizeof(char));
+		array[j] = (char *)ft_run_malloc(1, 11 * sizeof(char));
 		for (int k = 0; k < 10; k++)
 			array[j][k] = 'a' + j + k;
 	}
 	printf("array **: %p\n", array);
 	int z = 0;
-	while (z < 13 && array[z] != 0)
+	while (z < 3 && array[z] != 0)
 	{
 		printf("array[%p] = %s\n", array[z], array[z]);
 		z++;
 	}
 	printf("------\n");
-	printf("Taille de Ouille: %lu\n----------\n", ft_lstsize(ouille));
 	for (j = 0; j < 3; j++) {
-		if (ft_free(&ouille, array[j]) == 1)
+		if (!ft_run_malloc(2, array[j]))
 			printf("array[%i] a ete free\n", j);
 		else
 			printf("array[%i] n'a pas ete free\n", j);
 	}
-	if (ft_free(&ouille, array) == 1)
+	if (!ft_run_malloc(2, array))
 		printf("array a ete free\n");
 	else
 		printf("array n'a pas ete free\n");
-	printf("Taille de Ouille: %lu\n----------\n", ft_lstsize(ouille));
-	int	*tab;
-	tab = (int *)ft_malloc(&ouille, 30 * sizeof(int));
+	
+	int	*tab = NULL;
+	
+	tab = (int *)ft_run_malloc(1, 30 * sizeof(int));
 	printf("tab: %p\n", tab);
-	for (i = 0; i < 30; i++)
+	for (i = 0; i < 29; i++)
 		tab[i] = i;
-	for (i = 0; i < 30; i++)
+	for (i = 0; i < 29; i++)
 		printf("%i\t", tab[i]);
-	printf("\nTaille de Ouille: %lu\n----------\n", ft_lstsize(ouille));
-	float	*floats;
-	floats = (float *)ft_malloc(&ouille, 10 * sizeof(float));
+
+	float	*floats = NULL;
+
+	floats = (float *)ft_run_malloc(1, 10 * sizeof(float));
 	printf("floats: %p\n", floats);
 	for (i = 0; i < 10; i++)
 		floats[i] = i + 0.5;
 	for (i = 0; i < 10; i++)
 		printf("%f\t", floats[i]);
-	printf("\nTaille de Ouille: %lu\n----------\n", ft_lstsize(ouille));
-	t_list	*ouille2;
-	ouille2 = (t_list *)ft_malloc(&ouille, 10 * sizeof(t_list));
+	
+	t_list	*ouille2 = NULL;
+	
+	ouille2 = (t_list *)ft_run_malloc(1, 10 * sizeof(t_list));
 	printf("ouille2: %p\n", ouille2);
-	printf("Taille de Ouille: %lu\n----------\ncontenu :\n", ft_lstsize(ouille));
-	ft_printlist(ouille);
-	if (ft_freeall(&ouille) == 1)
+	if (!ft_run_malloc(4))
 		printf("Tout a ete free\n");
 	else
 		printf("Tout n'a pas ete free\n");
-	printf("FIN: Taille de Ouille: %lu\n----------\n", ft_lstsize(ouille));
-	ft_printlist(ouille);
+	
+	// str = ft_run_malloc(1, 10);
+	// printf("str: %p\n", str);
+ 	// for (i = 0; i < 9; i++)
+ 	// 	str[i] = 'a' + i;
+ 	// printf("%s\n", str);
+ 	// printf("------\n");
+	// str = ft_run_malloc(3, str, 5);
+	// printf("New_str: %p\n", str);
+ 	// for (i = 0; i < 5; i++)
+ 	// 	str[i] = 'a' + i;
+ 	// printf("New_str: %s\n", str);
+ 	// printf("------\n");
+	// if (!ft_run_malloc(2, str))
+	// 	printf("str a ete free\n");
+	// else
+	// 	printf("str n'a pas ete free\n");
 	return (0);
 }
