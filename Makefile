@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pdeson <pdeson@student.42mulhouse.fr>      +#+  +:+       +#+         #
+#    By: philippe <philippe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/27 09:17:19 by pdeson            #+#    #+#              #
-#    Updated: 2024/02/27 09:20:02 by pdeson           ###   ########.fr        #
+#    Updated: 2024/04/15 10:17:11 by philippe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,12 @@ PRINT_PREFIX    =	\033[1m\033[38;5;240m[\033[0m\033[38;5;250m\
                    		 $(NAME)\033[1m\033[38;5;240m] \033[38;5;105m~\033[0m
 
 CC				=	@cc
-CFLAGS    =	-Wall -Werror -Wextra -g3
+CFLAGS    =	-Wall -Werror -Wextra -g3 #-fsanitize=address
 
 SRC_DIR   =	srces/
 OBJ_DIR   =	.obj/
 
-SRC       =	main.c ft_utils.c ft_malloc.c ft_free.c ft_free_all.c \
-            ft_lst0.c ft_lst1.c ft_lst2.c ft_strlen.c
+SRC       =	main.c ft_utils.c ft_malloc.c ft_free.c ft_free_all.c ft_realloc.c
 
 SRCES           =	$(addprefix $(SRC_DIR), $(SRC))
 OBJ             =	$(SRC:.c=.o)
@@ -39,7 +38,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 $(NAME): $(OBJS)
 	@printf "$(PRINT_PREFIX)\033[0;38;5;226m Compiling \033[0m["
 	@for i in $(shell seq 1 $(BAR_LENGTH)); do \
-		sleep 0.1; \
+		sleep 0.02; \
 		printf "\033[38;5;40m▲▼"; \
 	done
 	@printf "\033[38;5;40m] \033[0m\n"
