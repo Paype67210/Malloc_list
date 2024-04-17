@@ -6,39 +6,112 @@
 /*   By: pdeson <pdeson@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:17:56 by pdeson            #+#    #+#             */
-/*   Updated: 2024/02/27 10:14:53 by pdeson           ###   ########.fr       */
+/*   Updated: 2024/04/17 09:23:52 by pdeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/malloc_list.h"
 
-char	*ft_malloc(t_list *ouille, size_t size)
+void	ft_printlist(t_list *list)
 {
-	t_list	*head;
-	void	*buffer;
+	t_list	*buffer;
+	int		i=0;
 
-	buffer = malloc(size);
-	if (!buffer)
-		return (NULL);
-	buffer = "012345678";
-	printf("Entree dans ft_malloc\tBuffer = %p\n", buffer);
-	ft_lstadd_back(&ouille, ft_lstnew(buffer, size));
-	printf("gdsks\n");
-	head = ouille;
-	return (ft_lstlast(ouille)->content);
+	buffer = list;
+	while (buffer)
+	{
+		printf("ouille[%i]: %p\tsize = %i\n", i++, buffer->content, buffer->size);
+	 		buffer = buffer->next;
+	}
 }
 
 int	main(void)
 {
-	t_list	*ouille;
-	char	*str;
-	int		i = -1;
+	char	*str = NULL;
+	size_t	i;
 
-	ouille = NULL;
-	str = ft_malloc(ouille, 10);
+	str = ft_run_malloc(1, 10);
 	printf("str: %p\n", str);
-	printf("%zu\n", ft_strlen(str));
-	while (str[++i] != '\0')
-		str[i] = 'a';
-	printf("%s\n", (char *)str);
+ 	for (i = 0; i < 9; i++)
+ 		str[i] = 'a' + i;
+ 	printf("%s\n", str);
+ 	printf("------\n");
+	if (!ft_run_malloc(2, str))
+		printf("str a ete free\n");
+	else
+		printf("str n'a pas ete free\n");
+
+ 	char	**array = NULL;
+
+	array = (char **)ft_run_malloc(1, 4 * sizeof(char *));
+	printf("array: %p\n", array);
+	int	j;
+	for (j = 0; j < 3; j++) {
+		array[j] = (char *)ft_run_malloc(1, 11 * sizeof(char));
+		for (int k = 0; k < 10; k++)
+			array[j][k] = 'a' + j + k;
+	}
+	printf("array **: %p\n", array);
+	int z = 0;
+	while (z < 3 && array[z] != 0)
+	{
+		printf("array[%p] = %s\n", array[z], array[z]);
+		z++;
+	}
+	printf("------\n");
+	for (j = 0; j < 3; j++) {
+		if (!ft_run_malloc(2, array[j]))
+			printf("array[%i] a ete free\n", j);
+		else
+			printf("array[%i] n'a pas ete free\n", j);
+	}
+	if (!ft_run_malloc(2, array))
+		printf("array a ete free\n");
+	else
+		printf("array n'a pas ete free\n");
+	
+	int	*tab = NULL;
+	
+	tab = (int *)ft_run_malloc(1, 30 * sizeof(int));
+	printf("tab: %p\n", tab);
+	for (i = 0; i < 29; i++)
+		tab[i] = i;
+	for (i = 0; i < 29; i++)
+		printf("%i\t", tab[i]);
+
+	float	*floats = NULL;
+
+	floats = (float *)ft_run_malloc(1, 10 * sizeof(float));
+	printf("floats: %p\n", floats);
+	for (i = 0; i < 10; i++)
+		floats[i] = i + 0.5;
+	for (i = 0; i < 10; i++)
+		printf("%f\t", floats[i]);
+	
+	t_list	*ouille2 = NULL;
+	
+	ouille2 = (t_list *)ft_run_malloc(1, 10 * sizeof(t_list));
+	printf("ouille2: %p\n", ouille2);
+	if (!ft_run_malloc(4))
+		printf("Tout a ete free\n");
+	else
+		printf("Tout n'a pas ete free\n");
+	
+	str = ft_run_malloc(1, 20);
+	printf("str: %p\n", str);
+ 	for (i = 0; i < 9; i++)
+ 		str[i] = 'a' + i;
+ 	printf("%s\n", str);
+ 	printf("------\n");
+	str = ft_run_malloc(3, str, 12);
+	printf("str[%p]: %s\n", str, str);
+ 	for (i = 0; i < 11; i++)
+ 		str[i] = 'a' + i;
+ 	printf("New_str[%p]: %s\n", str, str);
+ 	printf("------\n");
+	if (!ft_run_malloc(2, str))
+		printf("str a ete free\n");
+	else
+		printf("str n'a pas ete free\n");
+	return (0);
 }
