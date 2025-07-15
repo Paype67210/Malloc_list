@@ -1,13 +1,24 @@
-# Projet de developpement collaboratif No 1 : Malloc_list
+# 🧠 Malloc_list – Gestion dynamique de la mémoire en C
 
-L'idée de ce projet est de développer 3 fonctions en C pour la gestion de l'allocation dynamique de mémoire (Malloc) :
-+ `ft_malloc` pour la création de variables allouées et leur stockage dans une liste chaînée.
-+ `ft_free` pour la libération de la mémoire et la suppression de la liste chaînée des variables concernées
-+ `ft_free_all` pour la libération des variables encore présentes dans la liste chaînée
+Ce projet personnel a été conçu pour **simplifier et fiabiliser la gestion de la mémoire dynamique** en langage C. Il repose sur une **implémentation personnalisée de `malloc`, `realloc`, `free` et `freeall`**, basée sur une **structure de liste chaînée**.
 
-Ces fonctions me semblent utiles dans le cadre de mon parcours à 42-Mulhouse pour faciliter la gestion des Malloc et éviter ainsi les doubles free, les leaks et autres désagréments dus à la gestion de la heap dans les projets en C.
-Affaire à suivre...
+## 🎯 Objectifs
 
-<h4> CONVENTIONS DE COLLABORATION
+- Offrir une alternative pédagogique et réutilisable aux fonctions standards d'allocation mémoire.
+- Comprendre en profondeur le fonctionnement bas niveau de la mémoire.
+- Favoriser la **réutilisabilité** du code dans d'autres projets C.
+- Expérimenter le **travail collaboratif** et les **bonnes pratiques de versioning** avec Git et GitHub.
 
-<i>Toute modification doit être realisée sur une nouvelle branche afin de conserver la branche principale avant tout `PULL REQUEST` validé.
+## 🛠️ Technologies et concepts
+- Langage C
+- Structures de données (liste chaînée)
+- Allocation dynamique (`malloc`, `realloc`, `free`, `freeall`)
+- Gestion des blocs libres et alloués
+- Collaboration via GitHub (issues, branches, pull requests)
+
+## 🤝 Collaboration
+
+Ce projet a été réalisé en équipe avec d'autres étudiants afin de :
+- Mettre en pratique le **travail en équipe** sur un projet technique.
+- Appliquer des **méthodologies de développement collaboratif**.
+- Améliorer la qualité du code grâce aux **revues de code** et à la **documentation partagée**.
